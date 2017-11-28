@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="mystyle.css">
+<script src="modernizr-1.6.min.js"></script>
+<script type="text/javascript">
+window.addEventListener('load', eventWindowLoaded, false);
+function eventWindowLoaded() {
+   settingsAtStart();
+}
+
+function settingsAtStart()
+{
+
+
+   //alert("settings at start");
+   var canvas = document.getElementById('myCanvas');
+
+   var ctx = canvas.getContext('2d');
+   ctx.beginPath();
+   // clear the canvas. Will also help when the loop runs.
+   ctx.clearRect(0,0, 900, 400);
+   // create a line
+   ctx.fillStyle='#DEB887';
+   ctx.beginPath();
+   ctx.moveTo(20, 360);
+    ctx.lineTo(800, 360);
+    ctx.lineTo(800, 340);
+    ctx.lineTo(20, 340);
+    ctx.lineTo(20, 360);
+   //ctx.MoveTo(375,375);
+
+
+   ctx.fill();
+   ctx.stroke();
+
+   // increment x's place by 10;
+
+   // create an image
+   ctx.beginPath();
+   // down below is the new ball
+   var imageObj = new Image();
+
+
+    imageObj.onload = function() {
+
+
+     ctx.drawImage(imageObj, 20, 250);
+   };
+
+
+
+
+  /*
+   var imageObj2 = new Image();
+   imageObj2.onload = function() {
+   ctx.drawImage(imageObj2, 45, 5);
+ };
+  */
+  ;
+  imageObj.src = 'box-Car.png';
+}
+
+//load all the images first. If you don't load all the images first, the image flickers.
+// The reason for flickering is that the image is displayed even before it is loaded.
+function loadImages()
+{
+
+  //  alert("inside loadImages");
+    var imgToLoad = 3, imgLoaded = 0;
+
+    var onImgLoad = function()
+    {
+        imgLoaded++;
+
+
+    };
+
+    imageObj = new Image();
+    imageObj.src = 'box-Car.png';
+    imageObj.onload = onImgLoad;
+
+
+
+}
+
+function canvasApp() {
+
+  function draw(){
+
+           loadImages();
+           var canvas = document.getElementById('myCanvas');
+
+            var ctx = canvas.getContext('2d');
+
+            // clear the canvas. We clear the canvas because every time we run the loop we need to remove the
+            // pevious frame.
+
+            ctx.clearRect(0,0, 900, 400);
+
+             ctx.beginPath();
+             ctx.moveTo(20, 360);
+             ctx.lineTo(800, 360);
+             ctx.lineTo(800, 340);
+             ctx.lineTo(20, 340);
+             ctx.lineTo(20, 360);
+             ctx.fillStyle='#DEB887';
+             ctx.fill();
+             ctx.stroke();
+
+
+            if(x<500)
+            {
+            x+=5;
+            }
+
+
+          if(x>=500)
+            {
+
+                   clearInterval(flag);
+
+            }
+
+
+
+
+
+                  ctx.drawImage(imageObj, x, y);
+
+
+
+
+
+
+
+
+            imageObj.src = 'box-Car.png';
+
+        }
+
+
+
+
+
+
+
+
+
+
+   var x= 20;
+   var y= 250;
+   var m= 300;
+   var n= 250;
+   var flag = setInterval(draw, 33);
+
+   //var flag2 = setInterval(draw, 33);
+
+
+}
+
+
+
+
+
+
+
+
+</script>
+
+</head>
+<body>
+
+<p id="heading"><font size="6">Motion on a flat plane with no friction involved</font></p>
+
+<input id="slideButton"type= "button" value="slide" onClick= "canvasApp()">
+<input type= "button" value="Reset" onClick= "settingsAtStart()">
+<input type= "button" value="Next" onclick="location.href = 'FlatEarth.html';">
+
+
+<div style="position: absolute; top: 40px; left: 50px;">
+
+<canvas id="myCanvas" width="900" height="400"></canvas>
+
+</canvas>
+</div>
+
+</body>
+</html>

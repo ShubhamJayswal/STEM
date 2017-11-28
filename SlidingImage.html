@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title></title>
+<link rel="stylesheet" type="text/css" href="mystyle2.css">
+<script src="modernizr-1.6.min.js"></script>
+<script type="text/javascript">
+window.addEventListener('load', eventWindowLoaded, false);
+function eventWindowLoaded() {
+   settingsAtStart();
+}
+
+function settingsAtStart()
+{
+
+
+   //alert("settings at start");
+   var canvas = document.getElementById('myCanvas');
+
+   var ctx = canvas.getContext('2d');
+
+   // clear the canvas. Will also help when the loop runs.
+   ctx.clearRect(0,0, 530, 400);
+   // create a line
+
+   ctx.beginPath();
+   ctx.moveTo(20,35);
+   ctx.lineTo(20, 375);
+   ctx.lineTo(375,375);
+   ctx.lineTo(500, 375);
+   ctx.lineTo(360,375);
+   ctx.lineTo(20,35);
+   //ctx.MoveTo(375,375);
+   ctx.fillStyle='#DEB887';
+   ctx.fill();
+   ctx.stroke();
+
+   // increment x's place by 10;
+
+   // create an image
+   ctx.beginPath();
+   // down below is the new ball
+   var imageObj = new Image();
+
+     imageObj.onload = function() {
+     ctx.drawImage(imageObj, 26, 5);
+   };
+  /*
+   var imageObj2 = new Image();
+   imageObj2.onload = function() {
+   ctx.drawImage(imageObj2, 45, 5);
+ };
+  */
+  imageObj.src = 'InclinedForces.png';
+}
+
+//load all the images first. If you don't load all the images first, the image flickers.
+// The reason for flickering is that the image is displayed even before it is loaded.
+function loadImages()
+{
+
+  //  alert("inside loadImages");
+    var imgToLoad = 1, imgLoaded = 0;
+
+    var onImgLoad = function()
+    {
+        imgLoaded++;
+
+
+    };
+
+    imageObj = new Image();
+    imageObj.src = 'InclinedForces.png';
+    imageObj.onload = onImgLoad;
+
+
+}
+
+function canvasApp() {
+
+  function draw(){
+
+           loadImages();
+           var canvas = document.getElementById('myCanvas');
+
+            var ctx = canvas.getContext('2d');
+
+            // clear the canvas. We clear the canvas because every time we run the loop we need to remove the
+            // pevious frame.
+
+            ctx.clearRect(0,0, 530, 400);
+
+            ctx.beginPath();
+            ctx.moveTo(20,35);
+            ctx.lineTo(20, 375);
+            ctx.lineTo(375,375);
+            ctx.lineTo(500, 375);
+            ctx.lineTo(360,375);
+            ctx.lineTo(20,35);
+            //ctx.MoveTo(375,375);
+            ctx.fillStyle='#DEB887';
+            ctx.fill();
+            ctx.stroke();
+
+            if(y<220)
+            {
+            x+=4;
+            y+=4;
+            }
+            else
+               clearInterval(flag);
+
+            ctx.drawImage(imageObj, x, y);
+
+
+
+
+
+            imageObj.src = 'InclinedForces.png';
+            imageObj2.src = 'lunapicStraight.png';
+
+        }
+
+
+
+
+
+
+
+
+
+
+   var x= 26;
+   var y= 5;
+
+   var flag = setInterval(draw, 33);
+
+
+
+
+}
+
+
+
+
+
+
+
+
+</script>
+
+</head>
+<body>
+
+<p id="heading"><font size="6">Motion on an inclined plane</font></p>
+
+<input id="slideButton"type= "button" value="slide" onClick= "canvasApp()">
+<input type= "button" value="Reset" onClick= "settingsAtStart()">
+<input type= "button" value="Next" onclick="location.href = 'FlatPlaneNoFriction.html';">
+<div style="position: absolute; top: 40px; left: 50px;">
+
+<canvas id="myCanvas" width="550" height="400"></canvas>
+
+</canvas>
+</div>
+
+</body>
+</html>
